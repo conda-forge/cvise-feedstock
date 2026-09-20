@@ -10,7 +10,7 @@ source:
   sha256: d015050cfc4015460ca5793378c4899a36104ddcf084f29f0f5f6233f6187cb1
 
 build:
-  number: 0
+  number: 1
   skip:
     - win
   script:
@@ -44,13 +44,13 @@ tests:
       run:
         - clang 20.*
     script:
-    - printf '%s\n' 'static int nextHi = 1;' 'static int junk(void) { return 0; }' 'int main(void) { return nextHi + junk(); }' > test.c
-    - printf '%s\n' '#!/bin/sh' 'set -eu' 'clang -c test.c >/dev/null 2>&1 && grep -q nextHi test.c' > interesting.sh
-    - chmod +x interesting.sh
-    - cvise ./interesting.sh test.c
-    - grep -q nextHi test.c
-    - test "$(wc -c < test.c)" -lt 80
-    - cvise-delta --help
+      - printf '%s\n' 'static int nextHi = 1;' 'static int junk(void) { return 0; }' 'int main(void) { return nextHi + junk(); }' > test.c
+      - printf '%s\n' '#!/bin/sh' 'set -eu' 'clang -c test.c >/dev/null 2>&1 && grep -q nextHi test.c' > interesting.sh
+      - chmod +x interesting.sh
+      - cvise ./interesting.sh test.c
+      - grep -q nextHi test.c
+      - test "$(wc -c < test.c)" -lt 80
+      - cvise-delta --help
 
 about:
   homepage: https://github.com/marxin/cvise
